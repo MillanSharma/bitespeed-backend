@@ -22,12 +22,12 @@ export function createHandler<T extends z.ZodType>(
         schema.parse(req.body);
         await handler(req, res, next);
       } else {
-        const simpleHandler = schemaOrHandler as (
+        const handler = schemaOrHandler as (
           req: Request,
           res: Response,
           next: NextFunction
         ) => void | Promise<void>;
-        await simpleHandler(req, res, next);
+        await handler(req, res, next);
       }
     } catch (error) {
       next(error);
