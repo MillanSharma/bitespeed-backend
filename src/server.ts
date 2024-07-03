@@ -2,6 +2,7 @@ import process from 'node:process';
 import cors from 'cors';
 import express from 'express';
 import './utils/env';
+import routes from './routes/routes';
 
 const { PORT } = process.env;
 
@@ -11,13 +12,6 @@ app.use(express.json());
 app.use(cors());
 
 // utility route
-app.get('/', (_req, res) => {
-  res.json({
-    message: 'Welcome to the API!',
-  });
-});
-
-// utility route
 app.get('/status', (_req, res) => {
   res.json({
     message: 'Server is running',
@@ -25,6 +19,8 @@ app.get('/status', (_req, res) => {
     timestamp: Date.now(),
   });
 });
+
+app.use('/', routes)
 
 
 app.listen(PORT, () => {
