@@ -10,12 +10,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// utility route
 app.get('/', (_req, res) => {
   res.json({
     message: 'Welcome to the API!',
   });
 });
 
+// utility route
 app.get('/status', (_req, res) => {
   res.json({
     message: 'Server is running',
