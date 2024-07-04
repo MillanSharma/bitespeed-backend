@@ -75,4 +75,4 @@ request: { email: string, phoneNumber: string }
 
 #### route exposed on: https://bitespeed-backend-wwxo.onrender.com/status
 
-#### docs exposed on: https://bitespeed-backend-wwxo.onrender.com/status
+#### docs exposed on: https://bitespeed-backend-wwxo.onrender.com/docs
