@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { pgTable, serial, text, integer, timestamp } from 'drizzle-orm/pg-core';
-
+import { createSelectSchema } from 'drizzle-zod'
 export const contacts = pgTable('contacts', {
   id: serial('id').primaryKey(),
   phoneNumber: text('phone_number').unique(),
@@ -12,17 +12,7 @@ export const contacts = pgTable('contacts', {
   deletedAt: timestamp('deleted_at')
 });
 
-export const contactSchema = z.object({
-  id: z.number().int().optional(),
-  phoneNumber: z.string(),
-  email: z.string().email(),
-  linkedId: z.number().int().optional(),
-  linkPrecedence: z.enum(['primary', 'secondary']).default('primary'),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  deletedAt: z.string().nullable().optional()
-});
-
+export const contactSchema = createSelectSchema(contacts);
 export const identifySchema = z.object({
     email: z.string().email().optional(),
     phoneNumber: z.string().optional()

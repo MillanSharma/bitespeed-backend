@@ -18,7 +18,7 @@ app.use(cors());
 // swagger setup 
 const swaggerSpecs = swaggerJSDoc(swaggerOptions)
 // swagger ui route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use('/', routes)
 
