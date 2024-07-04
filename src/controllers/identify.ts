@@ -16,7 +16,7 @@ const handleIdentify = createHandler(
       if (email && phoneNumber) {
         whereClause = or(
           eq(contacts.email, email),
-          eq(contacts.phoneNumber, phoneNumber)
+          eq(contacts.phoneNumber, phoneNumber),
         );
       } else if (email) {
         whereClause = eq(contacts.email, email);
@@ -50,7 +50,7 @@ const handleIdentify = createHandler(
         foundContacts.find((contact) => contact.linkPrecedence === "primary") ||
         foundContacts[0];
       let secondaryContacts = foundContacts.filter(
-        (contact) => contact.id !== primaryContact?.id
+        (contact) => contact.id !== primaryContact?.id,
       );
 
       if (!primaryContact?.linkPrecedence && primaryContact?.id) {
@@ -76,7 +76,7 @@ const handleIdentify = createHandler(
         ...secondaryContacts.map((contact) => contact.phoneNumber),
       ];
       const secondaryContactIds = secondaryContacts.map(
-        (contact) => contact.id
+        (contact) => contact.id,
       );
 
       res.json({
@@ -93,7 +93,7 @@ const handleIdentify = createHandler(
         .status(500)
         .json({ error: "An error occurred while processing the request" });
     }
-  }
+  },
 );
 
 export default handleIdentify;

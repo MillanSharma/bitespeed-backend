@@ -1,6 +1,6 @@
-import type { Router } from 'express';
-import { createRouter } from '@/utils/create';
-import handleIdentify from '@/controllers/identify';
+import type { Router } from "express";
+import { createRouter } from "@/utils/create";
+import handleIdentify from "@/controllers/identify";
 
 export default createRouter((router: Router) => {
   /**
@@ -28,9 +28,9 @@ export default createRouter((router: Router) => {
    *                   type: number
    *                   example: 1625244672000
    */
-  router.get('/status', (_req, res) => {
+  router.get("/status", (_req, res) => {
     res.json({
-      message: 'Server is running',
+      message: "Server is running",
       uptime: process.uptime(),
       timestamp: Date.now(),
     });
@@ -84,6 +84,5 @@ export default createRouter((router: Router) => {
    *       500:
    *         description: Internal server error
    */
-  router.post('/identify', handleIdentify);
+  router.post("/identify", handleIdentify);
 });
-
