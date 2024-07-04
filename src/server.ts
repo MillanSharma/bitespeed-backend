@@ -3,6 +3,10 @@ import cors from 'cors';
 import express from 'express';
 import './utils/env';
 import routes from './routes/routes';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express'
+import swaggerOptions from '../swaggerConfig';
+
 
 const { PORT } = process.env;
 
@@ -11,14 +15,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// utility route
-app.get('/status', (_req, res) => {
-  res.json({
-    message: 'Server is running',
-    uptime: process.uptime(),
-    timestamp: Date.now(),
-  });
-});
+// swagger setup 
+const swaggerSpecs = swaggerJSDoc(swaggerOptions)
+// swagger ui route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use('/', routes)
 
