@@ -5,13 +5,21 @@
     "node": ">=20.11.0"
   },
   "scripts": {
-    "build": "esbuild src/server.ts --bundle --outfile=build/server.js --platform=node --format=esm --packages=external",
     "start": "node build/server.js",
     "dev": "tsx watch src/server.ts",
     "generate": "drizzle-kit generate:pg",
     "migrate": "tsx src/migrate.ts",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "jest",
+    "build": "tsc"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -20,6 +28,7 @@
     "drizzle-zod": "^0.5.1",
     "express": "^4.19.2",
     "postgres": "^3.4.3",
+    "supertest": "^7.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "tsx": "^4.16.2",
@@ -30,13 +39,17 @@
     "@stylistic/eslint-plugin": "^2.1.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.11.16",
+    "@types/supertest": "^6.0.2",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
     "drizzle-kit": "^0.20.14",
     "esbuild": "^0.20.0",
     "eslint": "^8.57.0",
+    "jest": "^29.7.0",
     "pg": "^8.11.3",
-    "typescript": "^5.3.3"
+    "ts-jest": "^29.1.5",
+    "typescript": "^5.5.3"
   }
 }

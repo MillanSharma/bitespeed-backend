@@ -26,3 +26,5 @@ app.use('/', routes)
 app.listen(PORT, () => {
   console.info(`Server running at ${process.env.API_BASE_URL}`);
 });
+
+export default app;
