@@ -10,8 +10,8 @@ const swaggerOptions: Options= {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT}`,
-        description: 'Local server',
+        url: `${process.env.API_BASE_URL}`,
+        description: 'Server',
       },
     ],
   },
