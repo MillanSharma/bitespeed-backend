@@ -1,7 +1,6 @@
 import process from "node:process";
 import cors from "cors";
 import express from "express";
-
 import "./utils/env";
 import routes from "./routes/routes";
 import swaggerJSDoc from "swagger-jsdoc";
