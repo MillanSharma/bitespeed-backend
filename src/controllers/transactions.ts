@@ -15,18 +15,30 @@ async function connectMongo(): Promise<MongoClient> {
   return client;
 }
 
-export async function handleGetTransactions(page: number, limit: number): Promise<TransactionResponse> {
+export async function handleGetTransactions(page: number, limit: number, search?: string): Promise<TransactionResponse> {
   let client: MongoClient | undefined;
   
+  client = await connectMongo();
   const collectionName = 'transactions';
   try {
-    client = await connectMongo();
 
     const db: Db = client.db(dbName);
     const collection: Collection<Document> = db.collection(collectionName);
 
     const skip: number = (page - 1) * limit;
-    const documents: Document[] = await collection.find({})
+    const query: Document = {};
+    console.log(' search ', search)
+    if (search) {
+      query.$or = [
+        { username: { $regex: search, $options: 'i' } },
+        { transactionId: { $regex: search, $options: 'i' } },
+        { userId: { $regex: search, $options: 'i' } },
+        { paymentMethod: { $regex: search, $options: 'i' } },
+        { status: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    const documents: Document[] = await collection.find(query)
       .skip(skip)
       .limit(limit)
       .toArray();
@@ -55,7 +67,7 @@ export async function handleGetTransactions(page: number, limit: number): Promis
   }
 };
 
-export async function handleGetInvoices(page: number, limit: number): Promise<InvoiceResponse> {
+export async function handleGetInvoices(page: number, limit: number, search?: string): Promise<InvoiceResponse> {
   let client: MongoClient | undefined;
   const collectionName = 'invoices';
 
@@ -66,7 +78,21 @@ export async function handleGetInvoices(page: number, limit: number): Promise<In
     const collection: Collection<Document> = db.collection(collectionName);
 
     const skip: number = (page - 1) * limit;
-    const documents: Document[] = await collection.find({})
+    const query: Document = {};
+
+    if (search) {
+      query.$or = [
+        { customerEmail: { $regex: search, $options: 'i' } },
+        { customerName: { $regex: search, $options: 'i' } },
+        { customerPhone: { $regex: search, $options: 'i' } },
+        { currency: { $regex: search, $options: 'i' } },
+        { status: { $regex: search, $options: 'i' } },
+        { dueDate: { $regex: search, $options: 'i' } },
+
+      ];
+    }
+
+    const documents: Document[] = await collection.find(query)
       .skip(skip)
       .limit(limit)
       .toArray();
@@ -82,7 +108,8 @@ export async function handleGetInvoices(page: number, limit: number): Promise<In
       due_date: doc.dueDate,
       amount: doc.amount,
       invoice_id: doc.invoiceId,
-    }));
+      status: doc.status,
+    }))
 
     return { total: totalDocuments, records: invoices }
   } catch (err) {

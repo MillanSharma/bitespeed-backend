@@ -88,9 +88,10 @@ export default createRouter((router: Router) => {
   router.get("/transactions", async (req: Request, res: Response) => {
     const page: number = parseInt(req.query.page as string, 10) || 1;
     const limit: number = parseInt(req.query.limit as string, 10) || 10;
+    const search: string = req.query.search as string || '';
   
     try {
-      const transactions: TransactionResponse = await handleGetTransactions(page, limit);
+      const transactions: TransactionResponse = await handleGetTransactions(page, limit, search);
       res.json(transactions);
     } catch (err) {
       console.error('Error retrieving transactions:', err);
@@ -150,9 +151,10 @@ export default createRouter((router: Router) => {
   router.get("/invoices", async (req: Request, res: Response) => {
     const page: number = parseInt(req.query.page as string, 10) || 1;
     const limit: number = parseInt(req.query.limit as string, 10) || 10;
+    const search: string = req.query.search as string || '';
   
     try {
-      const invoices: InvoiceResponse= await handleGetInvoices(page, limit);
+      const invoices: InvoiceResponse= await handleGetInvoices(page, limit, search);
       res.json(invoices);
     } catch (err) {
       console.error('Error retrieving transactions:', err);

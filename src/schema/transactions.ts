@@ -33,6 +33,7 @@ interface Invoice {
   amount: string;
   currency: string;
   due_date: Date;
+  status: string,
 }
 
 interface TransactionResponse {
