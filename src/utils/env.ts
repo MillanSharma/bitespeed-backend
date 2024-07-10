@@ -13,7 +13,7 @@ const configSchema = z.object({
     .string()
     .url()
     .refine(
-      (url) => url.startsWith("postgres://") || url.startsWith("postgresql://"),
+      (url) => url.startsWith("mongodb+srv://") || url.startsWith("mongodb+srv://"),
       "DB_URL must be a valid postgresql url",
     ),
 });
