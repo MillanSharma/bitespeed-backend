@@ -6,13 +6,13 @@
   },
   "scripts": {
     "start": "node build/server.js",
+    "build": "esbuild src/server.ts --bundle --outfile=build/server.js --platform=node --format=esm --packages=external",
     "dev": "tsx watch src/server.ts",
     "generate": "drizzle-kit generate:pg",
     "migrate": "tsx src/migrate.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "jest",
-    "build": "tsc"
+    "test": "jest"
   },
   "jest": {
     "preset": "ts-jest",
